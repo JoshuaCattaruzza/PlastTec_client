@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
-import Form from 'react-bootstrap/Form'
-import DropdownButton from 'react-bootstrap/DropdownButton'
+import Form from 'react-bootstrap/Form';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from "react-bootstrap/Button";
 import { useSelector } from 'react-redux';
@@ -20,6 +20,8 @@ const NewMachine = (props) => {
     const { user: currentUser } = useSelector((state) => state.auth);
     // const { data: tasks } = useSelector((state) => state.data);
     console.log(currentUser);
+
+    
     const createMachine = (e) => {
         e.preventDefault();
 
@@ -29,7 +31,7 @@ const NewMachine = (props) => {
             description: description,
         };
 
-        fetch("http://localhost:4201/machine/create", {
+        fetch("http://localhost:4201/api/machine/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Machine)
@@ -48,7 +50,7 @@ const NewMachine = (props) => {
         </Card.Header>
         <Form className="text-center">
             <Form.Group  controlId="machine">
-                <Form.Label>Seleziona tipo:</Form.Label>
+                <Form.Label>Categoria:</Form.Label>
                 <DropdownButton variant="dark" title={machine} value={machine} onSelect={handleSelect} >
                     <Dropdown.Item eventKey="Lavorazione plastica">Lavorazione plastica</Dropdown.Item>
                     <Dropdown.Item eventKey="Veicoli">Veicoli</Dropdown.Item>
@@ -57,7 +59,7 @@ const NewMachine = (props) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Nome</Form.Label>
-                <Form.Control type="text" placeholder="Inserisci nome" style={{textAlign:"center"}} value={name} onChange={(e) => setName(e.target.value)} />
+                <Form.Control type="text" placeholder="Inserisci nome..." style={{textAlign:"center"}} value={name} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="description">
                 <Form.Label>Descrizione</Form.Label>

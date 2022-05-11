@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
+import Form from 'react-bootstrap/Form';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Button from "react-bootstrap/Button";
 import { useSelector } from 'react-redux';
 import Card from 'react-bootstrap/Card';
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 
-const NewTask = (props) => {
+const NewTask = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [machine, setMachine] = useState("");
@@ -19,9 +19,8 @@ const NewTask = (props) => {
     const [plannedDate, setPlannedDate] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
     const [created, setCreated] = useState(false);
-    const [dropdown, setDropdown] = useState([])
+    const [dropdown, setDropdown] = useState([]);
     const { user: currentUser } = useSelector((state) => state.auth);
-    const [categories, setCategories] = useState([])
       const createTask = (e) => {
         e.preventDefault();
 
@@ -30,7 +29,7 @@ const NewTask = (props) => {
             description: description,
             estimated_time: estimatedTime,
             expiry_date: expiryDate,
-            assigned_to_machine: [],
+            assigned_to_machine: machine,
             assignee: null,
             assigner: currentUser.username,
             planned_date: plannedDate,
@@ -38,7 +37,7 @@ const NewTask = (props) => {
 
         };
 
-        fetch("http://localhost:4201/task/create", {
+        fetch("http://localhost:4201/api/task/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Task)
@@ -46,68 +45,30 @@ const NewTask = (props) => {
 
     }
     const getMachine =() => {
-        fetch("http://localhost:4201/machine/",
+        fetch("http://localhost:4201/api/machine/",
         {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
-        }).then(res=>res.json())
-        .then(data => {setCategories(filterDropdown(data));});
+        })
+        .then((res)=>{
+            res.json()
+        })
+        .then((data) => 
+        {
+            console.log(data);
+            setDropdown(data);
+        });
     }
     
     useEffect(() => {
-        getMachine()
+        getMachine();
     }, []);
 
-    const filterDropdown = (item) =>{
-        var returnArr = [];
-        let categories = {
-            type: "",
-            data: []
-        };
-
-        var tmp = {
-            name: "",
-            description: ""
-        };
-
-        item.forEach(element=>{
-            console.log(element)
-            switch (element.type) {
-                case "Lavorazione plastica":
-                    categories.type = element.type;
-                    tmp.name = element.name;
-                    tmp.description = element.description;
-                    break;
-                case "Veicoli":
-                    categories.type = element.type;
-                    tmp.name = element.name;
-                    tmp.description = element.description;
-                    break;
-                case "Apparecchiature elettroniche":
-                    categories.type = element.type;
-                    tmp.name = element.name;
-                    tmp.description = element.description;
-                    break;
-                default:
-                    break;
-            }
-            categories.data.push(tmp);
-            tmp = {
-                type: "",
-                data: []
-            };
-            returnArr.push(categories);
-            categories.type = "";
-        })
-        console.log(returnArr)
-        return returnArr;
-    }
-     
-    // console.log(categories);
     const handleSelect = (e) => {
+        console.log(e)
         setMachine(e);
     }
-
+    
     return (
         <Card className='my-auto' style={{ marginLeft: "auto", marginRight: "auto", width: "60%" }}>
             <Card.Header className="text-center">
@@ -140,11 +101,11 @@ const NewTask = (props) => {
                     <Form.Label>Seleziona macchinario:</Form.Label>
                     <DropdownButton variant="dark" title={machine} value={machine} onSelect={handleSelect} >
                         {dropdown.map((item)=>{
-                            return(<Dropdown.Item>{item.name}</Dropdown.Item>)
+                            return(<Dropdown.Item key={item._id} eventKey={item.name} >{item.name}</Dropdown.Item>)
                         })}
                     </DropdownButton>
                 </Form.Group>
-                <Button as={Link} to="/home" variant="dark" type="submit" onClick={(e) => { createTask(e); setCreated(true) }} >
+                <Button as={Link} to="/home" variant="dark" type="submit" onClick={(e) => { createTask(e); setCreated(true); }} >
                     Crea task
                 </Button>
                 {created ? (<Alert variant="success">

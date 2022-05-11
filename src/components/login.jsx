@@ -5,15 +5,19 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import { getData } from "../actions/data";
+import Col from 'react-bootstrap/Col';
 
-const LogIn = () => {
+const LogIn = (props) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
 	const handleLogin = (e) => {
 		e.preventDefault();
-
-		dispatch(login(username, password));
+		dispatch(login(username, password))
+		.then(()=>{
+			// props.history.push("/home");
+          	window.location.reload();
+		})
 
 	};
 	useEffect(() => {
@@ -21,6 +25,7 @@ const LogIn = () => {
 	}, [dispatch])
 
 	return (
+		<Col style={{display: "flex", justifyContent:"center"}}>
 		<Form>
 			<Form.Group className="mb-3" controlId="username">
 				<Form.Label>Username</Form.Label>
@@ -51,12 +56,10 @@ const LogIn = () => {
 					<Link to="/home" style={{ textDecoration: 'none', color: "white" }}>
 						Log In
 					</Link>
-
 				</Button>
-
 			</Form.Group>
 		</Form>
-
+		</Col>
 	);
 };
 export default LogIn;

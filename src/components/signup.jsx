@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import { signup } from '../actions/auth';
+import Col from 'react-bootstrap/Col';
 import {withRouter} from "react-router-dom";
 
 const SignUp = (props) => {
@@ -27,7 +28,9 @@ const SignUp = (props) => {
 	};
 
 	return (
-		<Form >
+
+		<Col style={{display: "flex", justifyContent:"center"}}>
+		<Form className={'m-2'}  style={{ width: '18rem' }} >
 			<Form.Group className="mb-3" controlId="username">
 				<Form.Label>Crea username</Form.Label>
 				<Form.Control
@@ -61,6 +64,8 @@ const SignUp = (props) => {
 				</Button>
 			</Form.Group>
 		</Form>
+		</Col>
+	
 	);
 };
 export default withRouter(SignUp);

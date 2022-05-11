@@ -1,6 +1,5 @@
 import { FETCH_DATA } from './types';
-import Dataservice
- from '../services/data.service';
+import Dataservice from '../services/data.service';
 export const getData = () => (dispatch) => {
     return Dataservice.getData().then((res)=>{
         dispatch({

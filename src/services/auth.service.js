@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:4201/auth/';
+const url = 'http://localhost:4201/api/auth/';
 
 const signup = (username, password) => {
 	return axios.post(url + 'signup', {

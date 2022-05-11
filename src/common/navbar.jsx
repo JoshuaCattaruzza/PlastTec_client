@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar = () => {
 	const { isLoggedIn } = useSelector((state) => state.auth);
+	const { user: currentUser } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const handleLogout = () => {
 		dispatch(logout());
@@ -20,10 +21,16 @@ const NavBar = () => {
 				<Container >
 					<Navbar.Brand collapseonselect="true" as={Link} to="/home">
 						{/* <Logo /> */}
-						Dashboard manutenzioni
+						Manutenzioni
 					</Navbar.Brand>
+			
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">
+					{/* {!isLoggedIn ? (
+								<Navbar.Brand collapseonselect="true">
+									Logged in as: {currentUser.username}
+								</Navbar.Brand>
+							) : null} */}
 						<Nav collapseonselect="true" className="me-auto">
 							{!isLoggedIn ? (
 								<Nav.Link as={Link} to="/login">
@@ -35,17 +42,10 @@ const NavBar = () => {
 							{!isLoggedIn ? (
 							<Nav.Link as={Link} to="/signup">Registrati</Nav.Link>
 							): null}
-							<NavDropdown title="Gestione task" id="collapsible-nav-dropdown">
-								<NavDropdown.Item as={Link} to="/newtask">
-									Crea Task
-								</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="/oldtask">
-									Storico Task
-								</NavDropdown.Item>
-								{/* <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
-							</NavDropdown>
-							<Nav.Link as={Link} to="/newmachine">Inserimento macchinario</Nav.Link>
+							<Nav.Link as={Link} to="/newtask">Crea Task</Nav.Link>
+							<Nav.Link as={Link} to="/newmachine">Crea macchinario</Nav.Link>
+							<Nav.Link as={Link} to="/oldtask">Storico Task</Nav.Link>
+		
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
