@@ -9,17 +9,11 @@ const OldTasks = () => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4201/api/task")
+        fetch("http://localhost:4201/api/task/closed")
             .then((res) => {
                 return res.json();
             }).then((data) => {
-                var oldTasks = [];
-                data.forEach(task => {
-                    if (task.active === false) {
-                        oldTasks.push(task)
-                    }
-                });
-                setTasks(oldTasks);
+                setTasks(data);
             })
     }, []);
 
@@ -42,7 +36,16 @@ const OldTasks = () => {
                                     <Card.Header>{task.name}</Card.Header>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>
-                                            Inzio: {task.description}
+                                            Fine: {task.expiry_date}
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            Descrizione: {task.description}
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            Svolta da: {task.assignee}
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            Assegnata da: {task.assigner}
                                         </ListGroup.Item>
                                     </ListGroup>
                                     <Button variant="dark" type="submit" onClick={() => deleteTask(task._id)}>

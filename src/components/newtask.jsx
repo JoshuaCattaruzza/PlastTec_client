@@ -20,6 +20,8 @@ const NewTask = () => {
     const [estimatedTime, setEstimatedTime] = useState("");
     const [created, setCreated] = useState(false);
     const [dropdown, setDropdown] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [user, setUser] = useState("");
     const { user: currentUser } = useSelector((state) => state.auth);
       const createTask = (e) => {
         e.preventDefault();
@@ -30,7 +32,7 @@ const NewTask = () => {
             estimated_time: estimatedTime,
             expiry_date: expiryDate,
             assigned_to_machine: machine,
-            assignee: null,
+            assignee: user,
             assigner: currentUser.username,
             planned_date: plannedDate,
             active: true
@@ -41,34 +43,51 @@ const NewTask = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Task)
-        }).then(data => console.log(data))
+        }).then(data => console.log(data));
 
     }
-    const getMachine =() => {
+    const getUsers = () => {
+        fetch("http://localhost:4201/api/user/",
+        {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then((res)=>{
+            return res.json();
+        })
+        .then((data) => 
+        {
+            setUsers(data);
+            console.log(data);
+        });
+    }
+    
+    const getMachine = () => {
         fetch("http://localhost:4201/api/machine/",
         {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
         })
         .then((res)=>{
-            res.json()
+            return res.json();
         })
         .then((data) => 
         {
-            console.log(data);
             setDropdown(data);
         });
     }
     
     useEffect(() => {
         getMachine();
+        getUsers();
     }, []);
 
-    const handleSelect = (e) => {
-        console.log(e)
+    const handleSelectMachine = (e) => {
         setMachine(e);
     }
-    
+    const handleSelectUser = (e) => {
+        setUser(e);
+    }
     return (
         <Card className='my-auto' style={{ marginLeft: "auto", marginRight: "auto", width: "60%" }}>
             <Card.Header className="text-center">
@@ -87,21 +106,29 @@ const NewTask = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="description">
                     <Form.Label>Tempo previsto</Form.Label>
-                    <Form.Control type="text" placeholder="Inserisci tempo..." style={{textAlign:"center"}} value={estimatedTime} onChange={(e) => setEstimatedTime(e.target.value)} />
+                    <Form.Control type="time" placeholder="Inserisci tempo..." style={{textAlign:"center"}} value={estimatedTime} onChange={(e) => setEstimatedTime(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-2">
                     <Form.Label>Data di termine prevista</Form.Label>
-                    <Form.Control type="text" placeholder="Inserisci data..." style={{textAlign:"center"}} value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+                    <Form.Control type="date" placeholder="Inserisci data..." style={{textAlign:"center"}} value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-2">
                     <Form.Label>Manutenzione pianficata per il</Form.Label>
-                    <Form.Control type="text" placeholder="Inserisci data..." style={{textAlign:"center"}} value={plannedDate} onChange={(e) => setPlannedDate(e.target.value)} />
+                    <Form.Control type="date" placeholder="Inserisci data..." style={{textAlign:"center"}} value={plannedDate} onChange={(e) => setPlannedDate(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="machine">
                     <Form.Label>Seleziona macchinario:</Form.Label>
-                    <DropdownButton variant="dark" title={machine} value={machine} onSelect={handleSelect} >
+                    <DropdownButton variant="dark" title={machine} value={machine} onSelect={handleSelectMachine} >
                         {dropdown.map((item)=>{
                             return(<Dropdown.Item key={item._id} eventKey={item.name} >{item.name}</Dropdown.Item>)
+                        })}
+                    </DropdownButton>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="machine">
+                    <Form.Label>Assegna a:</Form.Label>
+                    <DropdownButton variant="dark" title={user} value={user} onSelect={handleSelectUser} >
+                        {users.map((item)=>{
+                            return(<Dropdown.Item key={item._id} eventKey={item.username} >{item.username}</Dropdown.Item>)
                         })}
                     </DropdownButton>
                 </Form.Group>

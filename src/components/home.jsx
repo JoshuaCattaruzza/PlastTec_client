@@ -13,19 +13,25 @@ import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import { history } from '../helpers/history';
-import { clearMessage } from '../actions/message';
-
 
 const Home = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const { user: currentUser } = useSelector((state) => state.auth);
-    const tasks = useSelector((state) => state.data.tasks);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if (currentUser) {
+            dispatch(getData());
+            setIsLoading(false);
+        } 
+    }, [currentUser, dispatch]);
+    
+    const activeTasks = useSelector((state) => state.data.tasks);
     const [show, setShow] = useState(false);
     const [task, setTask] = useState({});
     const [closed, setClosed] = useState(false);
-    const dispatch = useDispatch();
+
     
     const handleClose = () => {
         setShow(false);
@@ -36,26 +42,6 @@ const Home = () => {
     const handleShow = () => {
         setShow(true)
     };
-
-    useEffect(() => {
-
-        if (currentUser) {
-            dispatch(getData());
-            setIsLoading(false);
-        } else {
-            window.location.reload();
-        }
-    }, [currentUser, dispatch]);
-
-    const filterTasks = (tasks) => {
-        console.log(tasks);
-        var returnArr = [];
-        tasks.forEach(task => {
-            if (task.active === true)
-                returnArr.push(task);
-        });
-        return returnArr;
-    }
 
     const closeTask = (e, id) => {
 
@@ -68,15 +54,13 @@ const Home = () => {
 
     }
 
-    const activeTasks = filterTasks(tasks);
-
     return (
         <>
             {isLoading ? (<Spinner animation="grow" />) : activeTasks && activeTasks.length !== 0 ? (
                 <>
                     <Card className={'m-2'}>
                         <Card.Header>
-                            Benvenuto {currentUser.username}, al momento ci sono le seguenti manutenzioni in corso
+                            Benvenuto <b>{currentUser.username}</b>, al momento ci sono le seguenti manutenzioni in corso
                         </Card.Header>
                     </Card>
 
@@ -85,8 +69,8 @@ const Home = () => {
 
                             {activeTasks.map((task) => {
                                 return (
-                                    <Col>
-                                        <Card className={'m-2'} key={task._id} style={{ width: '18rem' }} >
+                                    <Col key={task._id} >
+                                        <Card className={'m-2'} style={{ width: '18rem' }} >
                                             <Card.Header>
                                                 Nome: {task.name}
                                                 <svg className="blinking m-2">
@@ -110,7 +94,7 @@ const Home = () => {
             <>
                 <Card className='m-2'>
                     <Card.Header>
-                        Benvenuto {currentUser.username}, al momento non ci sono manutenzioni in corso
+                        Benvenuto <b>{currentUser.username}</b>, al momento non ci sono manutenzioni in corso
                     </Card.Header>
                 </Card>
             </>)}

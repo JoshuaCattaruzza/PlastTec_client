@@ -15,11 +15,8 @@ const login = (username, password) => {
 			password,
 		})
 		.then((response) => {
-			console.log(response);
 			if (response.data.accessToken) {
 				localStorage.setItem('user', JSON.stringify(response.data));
-			} else {
-				console.log(response.data.accessToken);
 			}
 			return Promise.resolve();
 		});

@@ -14,8 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { history } from './helpers/history';
 import { clearMessage } from './actions/message';
 import { getData } from "./actions/data";
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistor } from "./store";
 function App() {
 
 	const { isLoggedIn } = useSelector((state) => state.auth);
@@ -23,6 +21,9 @@ function App() {
 
 	useEffect(() => {
 		dispatch(getData());
+	}, [dispatch])
+
+	useEffect(() => {
 		history.listen((location) => {
 			dispatch(clearMessage());
 		});
@@ -30,9 +31,8 @@ function App() {
 
 	return (
 		<Router history={history}>
-			<PersistGate loading={null} persistor={persistor}>
 			<NavBar></NavBar>
-			<Container className="p-3" fluid="md" style={{ marginTop: "100px", width: '100%', justifyContent: "center" }}>
+			<Container className="p-3" fluid style={{ marginTop: "100px" }}>
 				<Stack gap={3}>
 					{!isLoggedIn ? (
 						<>
@@ -73,7 +73,6 @@ function App() {
 					)}
 				</Stack>
 			</Container>
-			</PersistGate>
 		</Router>
 	);
 }
