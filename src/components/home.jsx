@@ -47,7 +47,7 @@ const Home = () => {
 
         e.preventDefault();
         setIsLoading(true);
-        fetch("http://192.168.1.18:4201/api/task/close/" + id, {
+        fetch("http://api.joshuacattaruzza.com/api/task/close/" + id, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' }
         }).then(() => { setIsLoading(false); setClosed(true); })

@@ -31,7 +31,7 @@ const NewMachine = (props) => {
             description: description,
         };
 
-        fetch("http://192.168.1.18:4201/api/machine/create", {
+        fetch("http://api.joshuacattaruzza.com/api/machine/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Machine)

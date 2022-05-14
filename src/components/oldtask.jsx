@@ -9,7 +9,7 @@ const OldTasks = () => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        fetch("http://192.168.1.18:4201/api/task/closed")
+        fetch("http://api.joshuacattaruzza.com/api/task/closed")
             .then((res) => {
                 return res.json();
             }).then((data) => {
@@ -18,7 +18,7 @@ const OldTasks = () => {
     }, []);
 
     const deleteTask = (id) => {
-        fetch("http://192.168.1.18:4201/api/task/" + id, {
+        fetch("http://api.joshuacattaruzza.com/api/task/" + id, {
             method: "DELETE"
         }).then(() => {
             const updatedTasks = tasks.filter(task => task._id !== id);
