@@ -39,7 +39,7 @@ const NewTask = () => {
 
         };
 
-        fetch("httpss://api.joshuacattaruzza.com/api/task/create", {
+        fetch("https://api.joshuacattaruzza.com/api/task/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Task)
@@ -47,7 +47,7 @@ const NewTask = () => {
 
     }
     const getUsers = () => {
-        fetch("httpss://api.joshuacattaruzza.com/api/user/",
+        fetch("https://api.joshuacattaruzza.com/api/user/",
         {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
@@ -63,7 +63,7 @@ const NewTask = () => {
     }
     
     const getMachine = () => {
-        fetch("httpss://api.joshuacattaruzza.com/api/machine/",
+        fetch("https://api.joshuacattaruzza.com/api/machine/",
         {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
