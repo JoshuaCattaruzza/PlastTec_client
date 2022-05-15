@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://api.joshuacattaruzza.com/api/auth/';
+const url = 'https://api.joshuacattaruzza.com/api/auth/';
 
 const signup = (username, password) => {
 	return axios.post(url + 'signup', {
