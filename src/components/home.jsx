@@ -80,11 +80,11 @@ const Home = () => {
                       <Card.Body>
                         <Card.Title>
                           Nome: {task.name}
-                          {/* 
-                        //Blinker
-                        <svg className="blinking m-2">
-                          <circle cx="10" cy="10" r="10" fill="red" />
-                        </svg> */}
+                          {task.status.active ? (       
+                          <svg className="blinking m-2">
+                          <circle cx="10" cy="10" r="10" fill="green" />
+                        </svg>) : null}
+                 
                         </Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
                           Operatore: {task.assignee.name}
@@ -115,16 +115,25 @@ const Home = () => {
                           Descrizione: {task.description}
                         </ListGroup.Item>
                       </ListGroup>
-                      <Button
-                        variant="dark"
-                        type="submit"
-                        onClick={() => {
-                          handleShow();
-                          setTask(task);
-                        }}
-                      >
-                        Approva
-                      </Button>
+                      {task.status.active ? (       
+                              <Button
+                              variant="dark"
+                              type="submit"
+                              onClick={() => {
+                                handleShow();
+                                setTask(task);
+                              }}
+                            >
+                              Approva
+                            </Button>
+                         ) : ( <Button
+                          variant="dark"
+                          type="submit"
+                          disabled
+                        >
+                          In attesa
+                        </Button>)}
+                 
                     </Card>
                   </Col>
                 );
