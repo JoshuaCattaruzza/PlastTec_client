@@ -3,25 +3,17 @@ import Form from 'react-bootstrap/Form';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from "react-bootstrap/Button";
-import { useSelector } from 'react-redux';
 import Card from 'react-bootstrap/Card';
-
-// import FormControl from 'react-bootstrap/FormControl';
-// import InputGroup from 'react-bootstrap/InputGroup';
 import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 
-const NewMachine = (props) => {
+const NewMachine = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [machine, setMachine] = useState("");
     const [created, setCreated] = useState(false);
-    const { user: currentUser } = useSelector((state) => state.auth);
-    // const { data: tasks } = useSelector((state) => state.data);
-    console.log(currentUser);
 
-    
     const createMachine = (e) => {
         e.preventDefault();
 

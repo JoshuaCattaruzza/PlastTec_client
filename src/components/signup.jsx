@@ -29,7 +29,7 @@ const SignUp = (props) => {
 
 	return (
 
-		<Col style={{display: "flex", justifyContent:"center"}}>
+		<Col style={{display: "flex", justifyContent:"center", marginTop: "100px"}}>
 		<Form className={'m-2'}  style={{ width: '18rem' }} >
 			<Form.Group className="mb-3" controlId="username">
 				<Form.Label>Crea username</Form.Label>

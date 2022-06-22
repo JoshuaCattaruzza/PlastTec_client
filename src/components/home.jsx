@@ -27,6 +27,7 @@ const Home = () => {
   }, [currentUser, dispatch]);
 
   const activeTasks = useSelector((state) => state.data.tasks);
+  console.log(activeTasks);
   const [show, setShow] = useState(false);
   const [task, setTask] = useState({});
   const [closed, setClosed] = useState(false);
@@ -44,9 +45,14 @@ const Home = () => {
   const closeTask = (e, id) => {
     e.preventDefault();
     setIsLoading(true);
-    fetch("https://api.joshuacattaruzza.com/api/task/close/" + id, {
+    fetch("https://api.joshuacattaruzza.com/api/task/done/" + id, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
+      body:JSON.stringify({
+        active: false,
+        pending: false,
+        done: true
+      })
     }).then(() => {
       setIsLoading(false);
       setClosed(true);
@@ -59,25 +65,51 @@ const Home = () => {
         <Spinner animation="grow" />
       ) : activeTasks && activeTasks.length !== 0 ? (
         <>
-          <Card className={"m-2"}>
+          <Container  >
+          <Card>
             <Card.Header>
               Benvenuto <b>{currentUser.username}</b>, al momento ci sono le
               seguenti manutenzioni in corso
             </Card.Header>
           </Card>
-
-          <Container>
             <Row>
               {activeTasks.map((task) => {
                 return (
                   <Col key={task._id}>
-                    <Card className={"m-2"} style={{ width: "18rem" }}>
-                      <Card.Header>
-                        Nome: {task.name}
+                    <Card className={"m-2"} style={{ width: "25rem" }}>
+                      <Card.Body>
+                        <Card.Title>
+                          Nome: {task.name}
+                          {/* 
+                        //Blinker
                         <svg className="blinking m-2">
                           <circle cx="10" cy="10" r="10" fill="red" />
-                        </svg>
-                      </Card.Header>
+                        </svg> */}
+                        </Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          Operatore: {task.assignee.name}
+                        </Card.Subtitle>
+                      </Card.Body>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          Macchinario: {task.assigned_to_machine.name}
+                        </ListGroup.Item>
+                      </ListGroup>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          Luogo: {task.location.name}
+                        </ListGroup.Item>
+                      </ListGroup>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          Tempo stimato: {task.estimated_time}
+                        </ListGroup.Item>
+                      </ListGroup>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          Scadenza: {task.expiry_date}
+                        </ListGroup.Item>
+                      </ListGroup>
                       <ListGroup variant="flush">
                         <ListGroup.Item>
                           Descrizione: {task.description}
@@ -97,7 +129,7 @@ const Home = () => {
                   </Col>
                 );
               })}
-              <Col>
+              {/* <Col>
             <Card className={"m-2"} style={{ width: "18rem", height:"350px" }}>
             <iframe
               allow="microphone;"
@@ -105,7 +137,7 @@ const Home = () => {
               src="https://console.dialogflow.com/api-client/demo/embedded/376111a1-e687-4ac1-b535-7dec36bc34b4"
             ></iframe>
             </Card>
-            </Col>
+            </Col> */}
             </Row>
           </Container>
         </>
@@ -138,7 +170,7 @@ const Home = () => {
               Chiudi task
             </Button>
             {closed ? (
-              <Alert variant="danger" className="m-2">
+              <Alert variant="success" className="m-2">
                 Task chiusa!
               </Alert>
             ) : null}

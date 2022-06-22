@@ -7,7 +7,7 @@ import { login } from '../actions/auth';
 import { getData } from "../actions/data";
 import Col from 'react-bootstrap/Col';
 
-const LogIn = (props) => {
+const LogIn = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const LogIn = (props) => {
 	}, [dispatch])
 
 	return (
-		<Col style={{display: "flex", justifyContent:"center"}}>
+		<Col style={{display: "flex", alignItems:"center", justifyContent:"center", marginTop: "100px"}}>
 		<Form>
 			<Form.Group className="mb-3" controlId="username">
 				<Form.Label>Username</Form.Label>

@@ -24,16 +24,17 @@ function App() {
 	}, [dispatch])
 
 	useEffect(() => {
-		history.listen((location) => {
+		history.listen(() => {
 			dispatch(clearMessage());
 		});
 	}, [dispatch]);
 
 	return (
 		<Router history={history}>
+
+			<Container className="p-3" fluid >
 			<NavBar></NavBar>
-			<Container className="p-3" fluid style={{ marginTop: "100px" }}>
-				<Stack gap={3}>
+				<Stack gap={3} style={{ marginLeft: "20%" }}>
 					{!isLoggedIn ? (
 						<>
 							<Switch>
