@@ -48,11 +48,11 @@ const Home = () => {
     fetch("https://api.joshuacattaruzza.com/api/task/done/" + id, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body:JSON.stringify({
+      body: JSON.stringify({
         active: false,
         pending: false,
-        done: true
-      })
+        done: true,
+      }),
     }).then(() => {
       setIsLoading(false);
       setClosed(true);
@@ -65,14 +65,14 @@ const Home = () => {
         <Spinner animation="grow" />
       ) : activeTasks && activeTasks.length !== 0 ? (
         <>
-          <Container  >
-          <Card>
-            <Card.Header>
-              Benvenuto <b>{currentUser.username}</b>, al momento ci sono le
-              seguenti manutenzioni in corso
-            </Card.Header>
-          </Card>
-            <Row>
+          <Container >
+            <Card>
+              <Card.Header>
+                Benvenuto <b>{currentUser.username}</b>, al momento ci sono le
+                seguenti manutenzioni in corso
+              </Card.Header>
+            </Card>
+            <Row style={{display: "flex", flexWrap: "left"}}>
               {activeTasks.map((task) => {
                 return (
                   <Col key={task._id}>
@@ -80,11 +80,11 @@ const Home = () => {
                       <Card.Body>
                         <Card.Title>
                           Nome: {task.name}
-                          {task.status.active ? (       
-                          <svg className="blinking m-2">
-                          <circle cx="10" cy="10" r="10" fill="green" />
-                        </svg>) : null}
-                 
+                          {task.status.active ? (
+                            <svg className="blinking m-2">
+                              <circle cx="10" cy="10" r="10" fill="green" />
+                            </svg>
+                          ) : null}
                         </Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
                           Operatore: {task.assignee.name}
@@ -115,25 +115,26 @@ const Home = () => {
                           Descrizione: {task.description}
                         </ListGroup.Item>
                       </ListGroup>
-                      {task.status.active ? (       
-                              <Button
-                              variant="dark"
-                              type="submit"
-                              onClick={() => {
-                                handleShow();
-                                setTask(task);
-                              }}
-                            >
-                              Approva
-                            </Button>
-                         ) : ( <Button
+                      {task.status.pending && !task.status.active ? (
+                        <Button
                           variant="dark"
                           type="submit"
-                          disabled
+                          onClick={() => {
+                            handleShow();
+                            setTask(task);
+                          }}
                         >
-                          In attesa
-                        </Button>)}
-                 
+                          Approva
+                        </Button>
+                      ) : task.status.active ? (
+                        <Button variant="dark" type="submit" disabled>
+                          Manutenzione in corso
+                        </Button>
+                      ) : (
+                        <Button variant="dark" type="submit" disabled>
+                          Da prendere in carico
+                        </Button>
+                      )}
                     </Card>
                   </Col>
                 );

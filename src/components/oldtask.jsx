@@ -29,7 +29,7 @@ const OldTasks = () => {
   };
   return (
     <Container>
-      <Row>
+      <Row style={{display: "flex", flexWrap: "left"}}>
 
           {tasks &&
             tasks.map((task) => {

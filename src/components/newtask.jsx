@@ -53,7 +53,7 @@ const NewTask = () => {
             lat: 0
         },
         status:{
-            active: true,
+            active: false,
             pending: false,
             done: false
         }

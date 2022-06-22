@@ -21,12 +21,12 @@ const NavBar = () => {
   };
   return (
     <>
-      <Offcanvas show={true} style={{width: "20%"}} {...options}>
+      <Offcanvas show={true} style={{ width: "20%" }} {...options}>
         <Container>
           <Offcanvas.Header>
-            <Offcanvas.Title >
+            <Offcanvas.Title>
               {/* <Logo /> */}
-                Dashboard Ufficio Tecnico
+              Dashboard Ufficio Tecnico
             </Offcanvas.Title>
           </Offcanvas.Header>
           {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
@@ -36,37 +36,65 @@ const NavBar = () => {
 								</Navbar.Brand>
 							) : null} */}
           <Offcanvas.Body>
-			<Row >
-            {!isLoggedIn ? (
-              <Button  variant="dark" as={Link} to="/login" style={{marginTop: "20px"}}>
-                Login
+            <Row>
+              {!isLoggedIn ? (
+                <Button
+                  variant="dark"
+                  as={Link}
+                  to="/login"
+                  style={{ marginTop: "20px" }}
+                >
+                  Login
+                </Button>
+              ) : (
+                <Button variant="dark" onClick={handleLogout}>
+                  Logout
+                </Button>
+              )}
+              {!isLoggedIn ? (
+                <Button
+                  variant="dark"
+                  as={Link}
+                  to="/signup"
+                  style={{ marginTop: "20px" }}
+                >
+                  Registrati
+                </Button>
+              ) : null}
+              <Button
+                variant="dark"
+                as={Link}
+                to="/home"
+                style={{ marginTop: "20px" }}
+              >
+                Manutenzioni Attive
+              </Button>{" "}
+              <Button
+                variant="dark"
+                as={Link}
+                to="/oldtask"
+                style={{ marginTop: "20px" }}
+              >
+                Storico Manutenzioni
               </Button>
-            ) : (
-              <Button  variant="dark" onClick={handleLogout}>Logout</Button>
-            )}
-            {!isLoggedIn ? (
-              <Button  variant="dark" as={Link} to="/signup" style={{marginTop: "20px"}}>
-                Registrati
+              <Button
+                variant="dark"
+                as={Link}
+                to="/newtask"
+                style={{ marginTop: "20px" }}
+              >
+                Crea Manutenzione
               </Button>
-            ) : null}
-			<Button  variant="dark" as={Link} to="/home" style={{marginTop: "20px"}}>
-			Manutenzioni attive
-			</Button>       <Button  variant="dark" as={Link} to="/oldtask" style={{marginTop: "20px"}}>
-              Storico Manutenzioni
-            </Button>	
-			
-			
-			<Button  variant="dark" as={Link} to="/newtask" style={{marginTop: "20px"}}>
-              Crea Manutenzione
-			</Button>
-     
-            <Button  variant="dark" as={Link} to="/newmachine" style={{marginTop: "20px"}}>
-              Crea macchinario
-            </Button>
-
-			</Row>
+              <Button
+                variant="dark"
+                as={Link}
+                to="/newmachine"
+                style={{ marginTop: "20px" }}
+              >
+                Crea Macchinario
+              </Button>
+            </Row>
           </Offcanvas.Body>
-		  
         </Container>
       </Offcanvas>
     </>
