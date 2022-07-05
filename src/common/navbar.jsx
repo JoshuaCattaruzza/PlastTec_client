@@ -47,7 +47,7 @@ const NavBar = () => {
                   Login
                 </Button>
               ) : (
-                <Button variant="dark" onClick={handleLogout}>
+                <Button variant="outline-info" onClick={handleLogout}>
                   Logout
                 </Button>
               )}

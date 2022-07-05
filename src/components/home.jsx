@@ -90,6 +90,7 @@ const Home = () => {
                           Operatore: {task.assignee.name}
                         </Card.Subtitle>
                       </Card.Body>
+                      <Card.Img  src={task.image_url}  alt="Card image"></Card.Img>
                       <ListGroup variant="flush">
                         <ListGroup.Item>
                           Macchinario: {task.assigned_to_machine.name}
@@ -116,6 +117,12 @@ const Home = () => {
                         </ListGroup.Item>
                       </ListGroup>
                       {task.status.pending && !task.status.active ? (
+                        <>
+                        <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          Tempo impiegato: {task.timer}
+                        </ListGroup.Item>
+                      </ListGroup>
                         <Button
                           variant="dark"
                           type="submit"
@@ -126,6 +133,7 @@ const Home = () => {
                         >
                           Approva
                         </Button>
+                        </>
                       ) : task.status.active ? (
                         <Button variant="dark" type="submit" disabled>
                           Manutenzione in corso
