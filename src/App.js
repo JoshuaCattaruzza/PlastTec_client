@@ -32,9 +32,9 @@ function App() {
 	return (
 		<Router history={history}>
 
-			<Container className="p-3" fluid >
+			<Container style={{width: "100%", paddingLeft: "0px", paddingRight: "0px"}} >
 			<NavBar></NavBar>
-				<Stack gap={3} style={{ marginLeft: "20%" }}>
+				<Stack  >
 					{!isLoggedIn ? (
 						<>
 							<Switch>

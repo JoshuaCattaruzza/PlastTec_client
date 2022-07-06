@@ -52,6 +52,8 @@ const OldTasks = () => {
                       Operatore: {task.assignee.name}
                     </Card.Subtitle>
                   </Card.Body>
+                  {task.image_url !== undefined ? (<Card.Img  src={task.image_url}  alt="Card image"></Card.Img>) : null}
+
                   <ListGroup variant="flush">
                     <ListGroup.Item>
                       Macchinario: {task.assigned_to_machine.name}

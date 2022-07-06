@@ -1,103 +1,108 @@
 import React from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/auth.js";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import Navbar from "react-bootstrap/Navbar";
 
-const NavBar = () => {
+const Navigation = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
   };
 
-  var options = {
-    name: "Disable backdrop",
-    scroll: true,
-    backdrop: false,
+  const handleClose = () => {
+    setShow(false);
   };
+  const handleShow = () => {
+    setShow(true);
+  };
+
   return (
     <>
-      <Offcanvas show={true} style={{ width: "20%" }} {...options}>
-        <Container>
-          <Offcanvas.Header>
-            <Offcanvas.Title>
-              {/* <Logo /> */}
-              Dashboard Ufficio Tecnico
-            </Offcanvas.Title>
-          </Offcanvas.Header>
-          {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
-          {/* {!isLoggedIn ? (
-								<Navbar.Brand collapseonselect="true">
-									Logged in as: {currentUser.username}
-								</Navbar.Brand>
-							) : null} */}
-          <Offcanvas.Body>
-            <Row>
-              {!isLoggedIn ? (
+        <Navbar bg="white" expand="true" style={{display: "flex", flexDirection: "row", justifyContent:"space-between",marginLeft:"30px", marginRight: "30px"}} >
+            <Navbar.Text>LOGO</Navbar.Text>
+            <Button style={{backgroundColor: "#0dcaf0"}} onClick={handleShow} >Menu</Button>
+        </Navbar>
+        <Offcanvas show={show} >      
+            <Offcanvas.Header  onHide={handleClose} closeButton>
+              <Offcanvas.Title>
+                {/* <Logo /> */}
+                Dashboard Ufficio Tecnico
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Row>
                 <Button
+                onClick={handleClose}
                   variant="dark"
                   as={Link}
-                  to="/login"
+                  to="/home"
                   style={{ marginTop: "20px" }}
                 >
-                  Login
+                  Manutenzioni Attive
                 </Button>
-              ) : (
-                <Button variant="outline-info" onClick={handleLogout}>
-                  Logout
-                </Button>
-              )}
-              {!isLoggedIn ? (
                 <Button
+                      onClick={handleClose}
                   variant="dark"
                   as={Link}
-                  to="/signup"
+                  to="/oldtask"
                   style={{ marginTop: "20px" }}
                 >
-                  Registrati
+                  Storico Manutenzioni
                 </Button>
-              ) : null}
-              <Button
-                variant="dark"
-                as={Link}
-                to="/home"
-                style={{ marginTop: "20px" }}
-              >
-                Manutenzioni Attive
-              </Button>{" "}
-              <Button
-                variant="dark"
-                as={Link}
-                to="/oldtask"
-                style={{ marginTop: "20px" }}
-              >
-                Storico Manutenzioni
-              </Button>
-              <Button
-                variant="dark"
-                as={Link}
-                to="/newtask"
-                style={{ marginTop: "20px" }}
-              >
-                Crea Manutenzione
-              </Button>
-              <Button
-                variant="dark"
-                as={Link}
-                to="/newmachine"
-                style={{ marginTop: "20px" }}
-              >
-                Crea Macchinario
-              </Button>
-            </Row>
-          </Offcanvas.Body>
-        </Container>
-      </Offcanvas>
+                <Button
+                      onClick={handleClose}
+                  variant="dark"
+                  as={Link}
+                  to="/newtask"
+                  style={{ marginTop: "20px" }}
+                >
+                  Crea Manutenzione
+                </Button>
+                <Button
+                      onClick={handleClose}
+                  variant="dark"
+                  as={Link}
+                  to="/newmachine"
+                  style={{ marginTop: "20px" }}
+                >
+                  Crea Macchinario
+                </Button>
+                {!isLoggedIn ? (
+                  <Button
+                  onClick={handleClose}
+                    variant="dark"
+                    as={Link}
+                    to="/login"
+                    style={{ marginTop: "20px" }}
+                  >
+                    Login
+                  </Button>
+                ) : (
+                  <Button variant="outline-info" style={{ marginTop: "20px" }} onClick={handleLogout}>
+                    Logout
+                  </Button>
+                )}
+                {!isLoggedIn ? (
+                  <Button
+                    variant="dark"
+                    as={Link}
+                    to="/signup"
+                    style={{ marginTop: "20px" }}
+                  >
+                    Registrati
+                  </Button>
+                ) : null}
+              </Row>
+            </Offcanvas.Body>
+        </Offcanvas>
     </>
   );
 };
-export default NavBar;
+export default Navigation;

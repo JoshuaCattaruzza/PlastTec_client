@@ -65,7 +65,7 @@ const Home = () => {
         <Spinner animation="grow" />
       ) : activeTasks && activeTasks.length !== 0 ? (
         <>
-          <Container >
+          <Container style={{width: "100%"}}>
             <Card>
               <Card.Header>
                 Benvenuto <b>{currentUser.username}</b>, al momento ci sono le
@@ -76,7 +76,7 @@ const Home = () => {
               {activeTasks.map((task) => {
                 return (
                   <Col key={task._id}>
-                    <Card className={"m-2"} style={{ width: "25rem" }}>
+                    <Card className={"m-2"} style={{ width: "23rem" }}>
                       <Card.Body>
                         <Card.Title>
                           Nome: {task.name}
@@ -90,7 +90,8 @@ const Home = () => {
                           Operatore: {task.assignee.name}
                         </Card.Subtitle>
                       </Card.Body>
-                      <Card.Img  src={task.image_url}  alt="Card image"></Card.Img>
+                      {task.image_url !== undefined ? (<Card.Img  src={task.image_url}  alt="Card image"></Card.Img>) : null}
+
                       <ListGroup variant="flush">
                         <ListGroup.Item>
                           Macchinario: {task.assigned_to_machine.name}
