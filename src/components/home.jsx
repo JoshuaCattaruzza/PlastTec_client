@@ -45,7 +45,7 @@ const Home = () => {
   const closeTask = (e, id) => {
     e.preventDefault();
     setIsLoading(true);
-    fetch("https://api.joshuacattaruzza.com/api/task/done/" + id, {
+    fetch("https://b96a-95-241-205-166.ngrok.io/api/task/done/" + id, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -65,14 +65,14 @@ const Home = () => {
         <Spinner animation="grow" />
       ) : activeTasks && activeTasks.length !== 0 ? (
         <>
-          <Container style={{width: "100%"}}>
+          <Container style={{ width: "100%", marginTop:"80px" }}>
             <Card>
               <Card.Header>
                 Benvenuto <b>{currentUser.username}</b>, al momento ci sono le
                 seguenti manutenzioni in corso
               </Card.Header>
             </Card>
-            <Row style={{display: "flex", flexWrap: "left"}}>
+            <Row style={{ display: "flex", flexWrap: "left" }}>
               {activeTasks.map((task) => {
                 return (
                   <Col key={task._id}>
@@ -90,7 +90,12 @@ const Home = () => {
                           Operatore: {task.assignee.name}
                         </Card.Subtitle>
                       </Card.Body>
-                      {task.image_url !== undefined ? (<Card.Img  src={task.image_url}  alt="Card image"></Card.Img>) : null}
+                      {task.image_url !== undefined ? (
+                        <Card.Img
+                          src={task.image_url}
+                          alt="Card image"
+                        ></Card.Img>
+                      ) : null}
 
                       <ListGroup variant="flush">
                         <ListGroup.Item>
@@ -119,21 +124,21 @@ const Home = () => {
                       </ListGroup>
                       {task.status.pending && !task.status.active ? (
                         <>
-                        <ListGroup variant="flush">
-                        <ListGroup.Item>
-                          Tempo impiegato: {task.timer}
-                        </ListGroup.Item>
-                      </ListGroup>
-                        <Button
-                          variant="dark"
-                          type="submit"
-                          onClick={() => {
-                            handleShow();
-                            setTask(task);
-                          }}
-                        >
-                          Approva
-                        </Button>
+                          <ListGroup variant="flush">
+                            <ListGroup.Item>
+                              Tempo impiegato: {task.timer}
+                            </ListGroup.Item>
+                          </ListGroup>
+                          <Button
+                            variant="dark"
+                            type="submit"
+                            onClick={() => {
+                              handleShow();
+                              setTask(task);
+                            }}
+                          >
+                            Approva
+                          </Button>
                         </>
                       ) : task.status.active ? (
                         <Button variant="dark" type="submit" disabled>

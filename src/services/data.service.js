@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const endpoints = ['https://api.joshuacattaruzza.com/api/task/','https://api.joshuacattaruzza.com/api/machine/'];
+const endpoints = ['https://b96a-95-241-205-166.ngrok.io/api/task/','https://api.joshuacattaruzza.com/api/machine/'];
 const getData = () => { 
 	return axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
 };

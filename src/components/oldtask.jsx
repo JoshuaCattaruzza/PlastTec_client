@@ -42,11 +42,6 @@ const OldTasks = () => {
                   <Card.Body>
                     <Card.Title>
                       Nome: {task.name}
-                      {/* 
-                        //Blinker
-                        <svg className="blinking m-2">
-                          <circle cx="10" cy="10" r="10" fill="red" />
-                        </svg> */}
                     </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
                       Operatore: {task.assignee.name}
