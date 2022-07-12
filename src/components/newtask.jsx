@@ -46,6 +46,7 @@ const NewTask = () => {
             user_id: currentUser.id,
             name: currentUser.username
         },
+        image_url:"",
         planned_date: plannedDate,
         location: {
             name: location,
