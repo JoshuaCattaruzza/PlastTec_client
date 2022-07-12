@@ -45,7 +45,7 @@ const Home = () => {
   const closeTask = (e, id) => {
     e.preventDefault();
     setIsLoading(true);
-    fetch("https://b96a-95-241-205-166.ngrok.io/api/task/done/" + id, {
+    fetch("https://api.joshuacattaruzza.com/api/task/done/" + id, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

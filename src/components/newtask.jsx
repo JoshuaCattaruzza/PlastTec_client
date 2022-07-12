@@ -60,7 +60,7 @@ const NewTask = () => {
     };
 
     console.log(Task);
-        fetch("https://b96a-95-241-205-166.ngrok.io/api/task/create", {
+        fetch("https://api.joshuacattaruzza.com/api/task/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Task)
@@ -68,7 +68,7 @@ const NewTask = () => {
 
     }
     const getUsers = () => {
-        fetch("https://b96a-95-241-205-166.ngrok.io/api/user/",
+        fetch("https://api.joshuacattaruzza.com/api/user/",
         {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
@@ -83,7 +83,7 @@ const NewTask = () => {
     }
     
     const getMachine = () => {
-        fetch("https://b96a-95-241-205-166.ngrok.io/api/machine/",
+        fetch("https://api.joshuacattaruzza.com/api/machine/",
         {
             method: "GET",
             headers: {'Content-Type': 'application/json'}

@@ -15,8 +15,8 @@ const Navigation = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   console.log(currentUser);
   const [show, setShow] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [server, setServer] = useState({});
+  // const [isConnected, setIsConnected] = useState(false);
+  // const [server, setServer] = useState({});
 
   const dispatch = useDispatch();
   const handleLogout = () => {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'https://b96a-95-241-205-166.ngrok.io/api/auth/';
+const url = 'https://api.joshuacattaruzza.com/api/auth/';
 
 const signup = (username, password) => {
 	return axios.post(url + 'signup', {
